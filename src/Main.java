@@ -7,63 +7,42 @@ public class Main {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-
-        //풍선의 갯수 받기
-        int N = Integer.parseInt(br.readLine());
-
-        // 위치 입력받기
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        Deque<Balloon> q = new ArrayDeque<>();
+        int n = Integer.parseInt(br.readLine());
 
-        int [] moveLocation = new int[N];
-        for(int i =0; i<N; i++){
-            moveLocation[i] = Integer.parseInt(st.nextToken());
+        StringTokenizer st1 = new StringTokenizer(br.readLine());
+        StringTokenizer st2 = new StringTokenizer(br.readLine());
+
+        int[] structure = new int[n];
+        int[] data = new int[n];
+
+
+
+        // 자료구조 내용 저장
+        for(int i = 0; i < n; i++){
+            structure[i] = Integer.parseInt(st.nextToken());
         }
 
-        // 큐에 1반을 제외한 풍선을 넣기
-        for(int i = 1; i<N; i++){
-            q.add(new Balloon(i+1,moveLocation[i]));
+        // 자료구조별 데이터 저장 내용
+        for(int i = 0; i < n; i++){
+            data[i] = Integer.parseInt(st.nextToken());
         }
 
-        //첫번재 풍선 종이
-        int moveValue = moveLocation[0];
-        sb.append("1 ");
+        // 삽입할 원소 개수
+        int addCount = Integer.parseInt(br.readLine());
+
+        // 삽입할 원소 입력
+        StringTokenizer addData = new StringTokenizer(br.readLine());
+        int[] addDataArr = new int[addCount];
 
 
-        while(!q.isEmpty()){
-            if(moveValue > 0){
-                for(int i = 1; i< moveValue;  i++){
-                    q.add(q.poll());
-                }
-
-
-                Balloon next = q.poll();
-                moveValue = next.location;
-                sb.append(next.idx+" ");
-
-            }else{
-                for(int i = 1; i< -moveValue;  i++){
-                    q.addFirst(q.pollLast());
-                }
-                Balloon next = q.pollLast();
-                moveValue = next.location;
-                sb.append(next.idx+" ");
-
-            }
+        // 삽입할 원소 배열 생성
+        for(int i = 0; i<addCount; i++){
+            addDataArr[i] = Integer.parseInt(addData.nextToken());
         }
-
-        System.out.print(sb);
     }
 }
 
-class Balloon{
-    int idx;
-    int location;
-    public Balloon(int idx, int location){
-        this.idx = idx;
-        this.location = location;
 
-    }
-}
 
